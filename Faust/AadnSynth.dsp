@@ -36,7 +36,7 @@ GateMidi = checkbox("Gate");
 // Faite votre montage dans la formule "process"
 
 process =
-  complexOsc(NoteMidi, 2) :
+  complexOsc(0, NoteMidi, 2) :
   filter(0, hslider("cutoff", 100, 50, 10000, 1), hslider("res", 1, 0.5, 10, 0.01), 0) :
   *(enveloppe(1, GateMidi)):
   *(hslider("MAIN VOLUME", 0, 0, 1, 0.01)) <:_,_; // Toujours garder cette dernière ligne
@@ -63,7 +63,7 @@ fmOsc(id, freq, ratio, amp) =
 	(freq*ratio <:os.oscsin, *(amp) : *) : +(freq) : os.oscsin :*(0.5)
   );
 
-enveloppe(id, , t) = hgroup("envellope %id",
+enveloppe(id, t) = hgroup("envellope %id",
   en.adsr(
   	vslider("[0]Attack", 0.02, 0.01, 1, 0.001),
   	vslider("[1]Decay", 0.02, 0.01, 1, 0.001),
@@ -81,4 +81,3 @@ filter(id, cutoff, res, typeFi) =
 
 scale(_x, _max) =
   max(0, 1-abs(_x - (_max-1)));
-			
