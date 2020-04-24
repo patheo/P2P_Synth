@@ -20,7 +20,7 @@ GateMidi = checkbox("Gate");
 
 * 	filter(<id>, <cutoff>, <resonance>, <type de filtre>)
 	Le type de filtre est un nombre entre 0 et 2 qui permet de passer de :
-	0 - passe pas
+	0 - passe bas
 	1 - passe bande
 	2 - passe haut
 
@@ -48,7 +48,7 @@ additive(id, freq, nbOsc) =
   hgroup("AdditivSynth %id",
   	hgroup("Freq", par(i, nbOsc, os.oscsin(freq*vslider("Freq %i [style : knobs]", i+1, 1, 16, 0.01)) * 1/10)) :
   	hgroup("Amp", par(i, nbOsc, *(vslider("Amp %i [style : knobs]", 1-i/nbOsc, 0, 1, 0.001))))
-  );
+  ) :> _;
 
 complexOsc(id, freq, typeOsc) =
   hgroup("CompOsc %id",
